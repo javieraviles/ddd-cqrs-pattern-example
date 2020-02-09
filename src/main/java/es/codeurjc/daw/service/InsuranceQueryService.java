@@ -21,8 +21,8 @@ public class InsuranceQueryService {
 	@Autowired
 	private ModelMapper modelMapper;
 
-	public List<BasicClaimDto> getWaitingClaimsList() {
-		return claimRepository.findByStatus(Status.WAITING).stream().map((claim) -> convertClaimEntityToBasicDto(claim))
+	public List<BasicClaimDto> getOpenedClaimsList() {
+		return claimRepository.findByStatus(Status.OPENED).stream().map((claim) -> convertClaimEntityToBasicDto(claim))
 				.collect(Collectors.toList());
 	}
 

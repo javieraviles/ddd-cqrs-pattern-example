@@ -2,7 +2,7 @@
 
 API REST docs
 
-## GET ALL WAITING CLAIMS
+## GET ALL OPENED CLAIMS
 
 * #### METHOD GET
 
@@ -14,13 +14,13 @@ API REST docs
         {
             "id": 3,
             "lossDescription": "Garage flooded, every electrical appliance broken in there",
-            "status": "WAITING",
+            "lossType": "ELECTRICAL_APPLIANCES",
             "compensation": 900
         },
         {
             "id": 4,
             "lossDescription": "Living room window broken due to earthquake",
-            "status": "WAITING",
+            "lossType": "WINDOWS",
             "compensation": 320
         }
     ]
@@ -38,9 +38,9 @@ API REST docs
 	{
         "address": "Super hype street",
         "risk": 3,
-        "electricalAppliancesCover": true,
-        "windowsCover": false,
-        "facadeCover": true,
+        "electricalAppliancesCoverage": true,
+        "windowsCoverage": false,
+        "facadeCoverage": true,
         "startingDate": "2016-10-10T15:00:00",
         "yearlyPrice": 499
     }
@@ -58,7 +58,7 @@ API REST docs
 	```
 	{
         "lossDescription":"Garage flooded, every electrical appliance broken in there",
-        "status": "WAITING",
+        "lossType": "ELECTRICAL_APPLIANCES",
         "creationDate": "2020-02-09T18:00:00",
         "compensation": 900
     }

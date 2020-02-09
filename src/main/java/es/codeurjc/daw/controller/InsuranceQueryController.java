@@ -17,8 +17,8 @@ public class InsuranceQueryController {
 	private InsuranceQueryService insuranceService;
 
 	@GetMapping("/claim")
-	public List<BasicClaimDto> listWaitingClaims() {
-		return insuranceService.getWaitingClaimsList();
+	public List<BasicClaimDto> listOpenedClaims() {
+		return insuranceService.getOpenedClaimsList();
 	}
 
 }

@@ -1,30 +1,22 @@
 package es.codeurjc.daw.controller;
 
-import java.time.LocalDateTime;
-
-import es.codeurjc.daw.model.Policy;
-import es.codeurjc.daw.model.Status;
+import es.codeurjc.daw.model.LossType;
 
 public class FullClaimDto {
 
 	private long id = -1;
 	private String lossDescription;
-	private boolean expertLossAdjusterNeeded;
-	private Status status;
-	private LocalDateTime creationDate;
+	private LossType lossType;
 	private long compensation;
-	private Policy policy;
 
 	public FullClaimDto() {
 		super();
 	}
 
-	public FullClaimDto(String lossDescription, Status status,
-			LocalDateTime creationDate, long compensation) {
+	public FullClaimDto(String lossDescription, LossType losstype, long compensation) {
 		super();
 		this.lossDescription = lossDescription;
-		this.status = status;
-		this.creationDate = creationDate;
+		this.lossType = losstype;
 		this.compensation = compensation;
 	}
 
@@ -44,28 +36,12 @@ public class FullClaimDto {
 		this.lossDescription = lossDescription;
 	}
 
-	public boolean isExpertLossAdjusterNeeded() {
-		return expertLossAdjusterNeeded;
+	public LossType getLossType() {
+		return lossType;
 	}
 
-	public void setExpertLossAdjusterNeeded(boolean expertLossAdjusterNeeded) {
-		this.expertLossAdjusterNeeded = expertLossAdjusterNeeded;
-	}
-
-	public Status getStatus() {
-		return status;
-	}
-
-	public void setStatus(Status status) {
-		this.status = status;
-	}
-
-	public LocalDateTime getCreationDate() {
-		return creationDate;
-	}
-
-	public void setCreationDate(LocalDateTime creationDate) {
-		this.creationDate = creationDate;
+	public void setLossType(LossType lossType) {
+		this.lossType = lossType;
 	}
 
 	public long getCompensation() {
@@ -74,14 +50,6 @@ public class FullClaimDto {
 
 	public void setCompensation(long compensation) {
 		this.compensation = compensation;
-	}
-
-	public Policy getPolicy() {
-		return policy;
-	}
-
-	public void setPolicy(Policy policy) {
-		this.policy = policy;
 	}
 
 }

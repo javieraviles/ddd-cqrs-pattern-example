@@ -1,12 +1,12 @@
 package es.codeurjc.daw.controller;
 
-import es.codeurjc.daw.model.Status;
+import es.codeurjc.daw.model.LossType;
 
 public class BasicClaimDto {
 
 	private long id = -1;
 	private String lossDescription;
-	private Status status;
+	private LossType lossType;
 	private long compensation;
 
 	public BasicClaimDto() {
@@ -29,12 +29,12 @@ public class BasicClaimDto {
 		this.lossDescription = lossDescription;
 	}
 
-	public Status getStatus() {
-		return status;
+	public LossType getLossType() {
+		return lossType;
 	}
 
-	public void setStatus(Status status) {
-		this.status = status;
+	public void setLossType(LossType lossType) {
+		this.lossType = lossType;
 	}
 
 	public long getCompensation() {
@@ -44,7 +44,5 @@ public class BasicClaimDto {
 	public void setCompensation(long compensation) {
 		this.compensation = compensation;
 	}
-
-	
 
 }

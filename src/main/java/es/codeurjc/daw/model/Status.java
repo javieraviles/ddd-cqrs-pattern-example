@@ -1,7 +1,7 @@
 package es.codeurjc.daw.model;
 
 public enum Status {
-	WAITING,
+	OPENED,
 	ACCEPTED,
-	DECLINED
+	REJECTED
 }

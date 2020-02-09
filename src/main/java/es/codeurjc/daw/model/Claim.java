@@ -18,6 +18,7 @@ public class Claim {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
 	private String lossDescription;
+	private LossType lossType;
 	private boolean expertLossAdjusterNeeded;
 	private Status status;
 	private LocalDateTime creationDate;
@@ -30,10 +31,11 @@ public class Claim {
 		super();
 	}
 
-	public Claim(String lossDescription, boolean expertLossAdjusterNeeded, Status status, boolean liable,
-			LocalDateTime creationDate, long compensation, Policy policy) {
+	public Claim(String lossDescription, LossType lossType, boolean expertLossAdjusterNeeded, Status status,
+			boolean liable, LocalDateTime creationDate, long compensation, Policy policy) {
 		super();
 		this.lossDescription = lossDescription;
+		this.lossType = lossType;
 		this.expertLossAdjusterNeeded = expertLossAdjusterNeeded;
 		this.status = status;
 		this.creationDate = creationDate;
@@ -55,6 +57,14 @@ public class Claim {
 
 	public void setLossDescription(String lossDescription) {
 		this.lossDescription = lossDescription;
+	}
+
+	public LossType getLossType() {
+		return lossType;
+	}
+
+	public void setLossType(LossType lossType) {
+		this.lossType = lossType;
 	}
 
 	public boolean isExpertLossAdjusterNeeded() {

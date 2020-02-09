@@ -20,23 +20,23 @@ public class Policy {
 	private long id;
 	private String address;
 	private int risk;
-	private boolean electricalAppliancesCover;
-	private boolean windowsCover;
-	private boolean facadeCover;
+	private boolean electricalAppliancesCoverage;
+	private boolean windowsCoverage;
+	private boolean facadeCoverage;
 	private LocalDateTime startDate;
 	private long yearlyPrice;
 	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "client_id")
 	private Client policyHolder;
 
-	public Policy(String address, int risk, boolean electricalAppliancesCover, boolean windowsCover,
-			boolean facadeCover, LocalDateTime startDate, long yearlyPrice, Client policyHolder) {
+	public Policy(String address, int risk, boolean electricalAppliancesCoverage, boolean windowsCoverage,
+			boolean facadeCoverage, LocalDateTime startDate, long yearlyPrice, Client policyHolder) {
 		super();
 		this.address = address;
 		this.risk = risk;
-		this.electricalAppliancesCover = electricalAppliancesCover;
-		this.windowsCover = windowsCover;
-		this.facadeCover = facadeCover;
+		this.electricalAppliancesCoverage = electricalAppliancesCoverage;
+		this.windowsCoverage = windowsCoverage;
+		this.facadeCoverage = facadeCoverage;
 		this.startDate = startDate;
 		this.yearlyPrice = yearlyPrice;
 		this.policyHolder = policyHolder;
@@ -70,28 +70,28 @@ public class Policy {
 		this.risk = risk;
 	}
 
-	public boolean isElectricalAppliancesCover() {
-		return electricalAppliancesCover;
+	public boolean isElectricalAppliancesCoverage() {
+		return electricalAppliancesCoverage;
 	}
 
-	public void setElectricalAppliancesCover(boolean electricalAppliancesCover) {
-		this.electricalAppliancesCover = electricalAppliancesCover;
+	public void setElectricalAppliancesCoverage(boolean electricalAppliancesCoverage) {
+		this.electricalAppliancesCoverage = electricalAppliancesCoverage;
 	}
 
-	public boolean isWindowsCover() {
-		return windowsCover;
+	public boolean isWindowsCoverage() {
+		return windowsCoverage;
 	}
 
-	public void setWindowsCover(boolean windowsCover) {
-		this.windowsCover = windowsCover;
+	public void setWindowsCoverage(boolean windowsCoverage) {
+		this.windowsCoverage = windowsCoverage;
 	}
 
-	public boolean isFacadeCover() {
-		return facadeCover;
+	public boolean isFacadeCoverage() {
+		return facadeCoverage;
 	}
 
-	public void setFacadeCover(boolean facadeCover) {
-		this.facadeCover = facadeCover;
+	public void setFacadeCoverage(boolean facadeCoverage) {
+		this.facadeCoverage = facadeCoverage;
 	}
 
 	public LocalDateTime getStartDate() {

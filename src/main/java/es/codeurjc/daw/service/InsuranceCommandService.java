@@ -1,5 +1,6 @@
 package es.codeurjc.daw.service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import javax.persistence.EntityNotFoundException;
@@ -12,7 +13,9 @@ import es.codeurjc.daw.controller.FullClaimDto;
 import es.codeurjc.daw.controller.FullPolicyDto;
 import es.codeurjc.daw.model.Claim;
 import es.codeurjc.daw.model.Client;
+import es.codeurjc.daw.model.LossType;
 import es.codeurjc.daw.model.Policy;
+import es.codeurjc.daw.model.Status;
 import es.codeurjc.daw.repository.ClaimRepository;
 import es.codeurjc.daw.repository.ClientRepository;
 import es.codeurjc.daw.repository.PolicyRepository;
@@ -34,23 +37,19 @@ public class InsuranceCommandService {
 
 	public void addPolicy(long clientId, FullPolicyDto policy) {
 		Client client = clientRepository.findById(clientId).orElseThrow(EntityNotFoundException::new);
-		policy.setPolicyHolder(client);
-		policyRepository.save(convertFullPolicyDtoToEntity(policy));
+		Policy policyEntity = convertFullPolicyDtoToEntity(policy);
+		policyEntity.setPolicyHolder(client);
+		policyRepository.save(policyEntity);
 	}
 
 	public void addclaim(long policyId, FullClaimDto claim) {
 		Policy policy = policyRepository.findById(policyId).orElseThrow(EntityNotFoundException::new);
-		claim.setPolicy(policy);
-		claim.setExpertLossAdjusterNeeded(isExpertLossAdjusterNeeded(policy.getPolicyHolder().getId()));
-		claimRepository.save(convertFullClaimDtoToEntity(claim));
-	}
-
-	private Policy convertFullPolicyDtoToEntity(FullPolicyDto policy) {
-		return modelMapper.map(policy, Policy.class);
-	}
-
-	private Claim convertFullClaimDtoToEntity(FullClaimDto claim) {
-		return modelMapper.map(claim, Claim.class);
+		Claim claimEntity = convertFullClaimDtoToEntity(claim);
+		claimEntity.setPolicy(policy);
+		claimEntity.setStatus(isLossTypeCovered(policy, claim.getLossType()) ? Status.OPENED : Status.REJECTED);
+		claimEntity.setCreationDate(LocalDateTime.now());
+		claimEntity.setExpertLossAdjusterNeeded(isExpertLossAdjusterNeeded(policy.getPolicyHolder().getId()));
+		claimRepository.save(claimEntity);
 	}
 
 	private boolean isExpertLossAdjusterNeeded(long policyHolderId) {
@@ -67,4 +66,27 @@ public class InsuranceCommandService {
 		}
 		return false;
 	}
+
+	private boolean isLossTypeCovered(Policy policy, LossType lossType) {
+		switch (lossType) {
+			case ELECTRICAL_APPLIANCES:
+				return policy.isElectricalAppliancesCoverage();
+			case WINDOWS:
+				return policy.isWindowsCoverage();
+			case FACADE:
+				return policy.isFacadeCoverage();
+			default:
+				return false;
+
+		}
+	}
+
+	private Policy convertFullPolicyDtoToEntity(FullPolicyDto policy) {
+		return modelMapper.map(policy, Policy.class);
+	}
+
+	private Claim convertFullClaimDtoToEntity(FullClaimDto claim) {
+		return modelMapper.map(claim, Claim.class);
+	}
+
 }

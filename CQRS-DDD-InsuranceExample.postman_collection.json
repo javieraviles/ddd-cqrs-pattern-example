@@ -1,0 +1,149 @@
+{
+	"info": {
+		"_postman_id": "2d4daa60-3198-4138-9b36-a6087ba1bb81",
+		"name": "CQRS-DDD-InsuranceExample",
+		"description": "# API REST - PRACTICA 1\n\nDocumentación  básica de las operaciones soportadas por la API REST de la **Práctica 1 - Tecnologías de Servicios de Internet**\n\n\n## GET ALL POST INFO\n\n_Obtener un listado con el identificador y el título de cada uno de los posts_\n\n* #### MÉTODO GET\n*  #### URL:  http://localhost:8080/api/posts\n* #### RESPONSE\n\t```\n\t{ \n\t\t\"0\": {\n\t\t\t\"id\": 0,\n\t\t\t\"title\": \"Master Cloud Apps\"\n\t\t\t}\n\t}\n\t```\n\n## GET POST INFO\n\n_Obtener toda la información de un post determinado (comentarios incluídos)_\n\n* #### MÉTODO GET\n*  #### URL:  http://localhost:8080/api/post/0\n* #### RESPONSE\n\t```\n\t{ \n\t\t\"id\": 0,\n\t\t\"title\": \"Master Cloud Apps\",\n\t\t\"body\": \"Tecnologias de Servicios de Internet\",\n\t\t\"commentList\": [\n\t\t\t{\n\t\t\t\t\"id\": 0,\n\t\t\t\t\"name\": \"Carlos\",\n\t\t\t\t\"comment\": \"Comentario de prueba\"\n\t\t\t}\n\t\t]\n\t}\n\t```\n\n## CREATE POST\n\n_Crear un post_\n\n* #### MÉTODO POST\n*  #### URL:  http://localhost:8080/api/posts\n*  #### BODY\n\t```\n\t{\n\t\t\"title\": \"Practica 1\",\n\t\t\"body\": \"Creacion de post desde API REST\"\n\t}\n\t```\n* #### RESPONSE\n\t```\n\t{ \n\t\t\"id\": 1, \n\t\t\"title\": \"Practica 1\", \n\t\t\"body\": \"Creacion de post desde API REST\",\n\t\t\"commentList\": []\n\t}\n\t```\n\n## CREATE COMMENT\n\n_Obtener toda la información de un post determinado (comentarios incluídos)_\n\n* #### MÉTODO POST\n*  #### URL:  http://localhost:8080/api/post/0/comment\n*  #### BODY\n\t```\n\t{\n\t\t\"name\": \"Carlos\",\n\t\t\"comment\": \"Comentario consumiendo la API REST\"\n\t}\n\t```\n\t\n* #### RESPONSE\n\t```\n\t{ \n\t\t\"id\": 1,\n\t\t\"name\": \"Carlos\",\n\t\t\"comment\": \"Comentario consumiendo la API REST\"\n\t}\n\t```\n\n## DELETE COMMENT\n\n_Borrar un comentario_\n\n* #### MÉTODO DELETE\n* \n*  #### URL:  http://localhost:8080/api/post/0/comment/0\n* \n* #### RESPONSE\n\t```\n\t{ \n\t\t\"id\": 0,\n\t\t\"name\": \"Carlos\",\n\t\t\"comment\": \"Comentario de prueba\"\n\t}\n\t```",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Find waiting claims",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/claim/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"claim",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create policy",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"address\": \"Avda Manuel Carceles 44\",\n\t\"risk\": 3,\n\t\"electricalAppliancesCover\": true,\n\t\"windowsCover\": false,\n\t\"facadeCover\": true,\n\t\"startingDate\": \"2016-10-10T15:00:00\",\n\t\"yearlyPrice\": 499\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/client/1/policy",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"client",
+						"1",
+						"policy"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create claim",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"lossDescription\":\"Garage flooded, every electrical appliance broken in there\",\n\t\"status\": \"WAITING\",\n\t\"creationDate\": \"2020-02-09T18:00:00\",\n\t\"compensation\": 450\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/policy/2/claim",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"policy",
+						"2",
+						"claim"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "da8f1855-c6a3-4b1b-b9ef-01cbe1920f87",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "2b78f371-feb7-4f66-a2f6-a431c819bade",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"protocolProfileBehavior": {}
+}

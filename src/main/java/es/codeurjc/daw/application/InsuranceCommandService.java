@@ -1,6 +1,5 @@
 package es.codeurjc.daw.application;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 import javax.persistence.EntityNotFoundException;
@@ -12,7 +11,6 @@ import org.springframework.stereotype.Service;
 import es.codeurjc.daw.model.Claim;
 import es.codeurjc.daw.model.Client;
 import es.codeurjc.daw.model.Policy;
-import es.codeurjc.daw.model.Status;
 import es.codeurjc.daw.persistence.ClaimRepository;
 import es.codeurjc.daw.persistence.ClientRepository;
 import es.codeurjc.daw.persistence.PolicyRepository;

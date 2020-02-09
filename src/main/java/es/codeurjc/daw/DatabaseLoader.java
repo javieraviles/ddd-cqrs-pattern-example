@@ -7,7 +7,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Controller;
 
 import es.codeurjc.daw.model.Client;
-import es.codeurjc.daw.repository.ClientRepository;
+import es.codeurjc.daw.persistence.ClientRepository;
 
 @Controller
 public class DatabaseLoader implements CommandLineRunner {

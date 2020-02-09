@@ -11,7 +11,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
-
 @Entity
 public class Policy {
 
@@ -29,8 +28,12 @@ public class Policy {
 	@JoinColumn(name = "client_id")
 	private Client policyHolder;
 
+	public Policy() {
+		super();
+	}
+
 	public Policy(String address, int risk, boolean electricalAppliancesCoverage, boolean windowsCoverage,
-			boolean facadeCoverage, LocalDateTime startDate, long yearlyPrice, Client policyHolder) {
+			boolean facadeCoverage, LocalDateTime startDate, long yearlyPrice) {
 		super();
 		this.address = address;
 		this.risk = risk;
@@ -39,11 +42,19 @@ public class Policy {
 		this.facadeCoverage = facadeCoverage;
 		this.startDate = startDate;
 		this.yearlyPrice = yearlyPrice;
-		this.policyHolder = policyHolder;
 	}
 
-	public Policy() {
-		super();
+	public boolean isLossTypeCovered(LossType lossType) {
+		switch (lossType) {
+			case ELECTRICAL_APPLIANCES:
+				return this.isElectricalAppliancesCoverage();
+			case WINDOWS:
+				return this.isWindowsCoverage();
+			case FACADE:
+				return this.isFacadeCoverage();
+			default:
+				return false;
+		}
 	}
 
 	public long getId() {

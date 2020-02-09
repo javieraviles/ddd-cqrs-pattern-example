@@ -1,23 +1,18 @@
-package es.codeurjc.daw.controller;
+package es.codeurjc.daw.ui;
 
 import es.codeurjc.daw.model.LossType;
+import es.codeurjc.daw.model.Status;
 
-public class FullClaimDto {
+public class ClaimDto {
 
 	private long id = -1;
 	private String lossDescription;
 	private LossType lossType;
+	private Status status;
 	private long compensation;
 
-	public FullClaimDto() {
+	public ClaimDto() {
 		super();
-	}
-
-	public FullClaimDto(String lossDescription, LossType losstype, long compensation) {
-		super();
-		this.lossDescription = lossDescription;
-		this.lossType = losstype;
-		this.compensation = compensation;
 	}
 
 	public long getId() {
@@ -42,6 +37,14 @@ public class FullClaimDto {
 
 	public void setLossType(LossType lossType) {
 		this.lossType = lossType;
+	}
+
+	public Status getStatus() {
+		return status;
+	}
+
+	public void setStatus(Status status) {
+		this.status = status;
 	}
 
 	public long getCompensation() {

@@ -1,4 +1,4 @@
-# cqrs-pattern-example
+# ddd-cqrs-pattern-example
 
 API REST docs
 
@@ -15,12 +15,14 @@ API REST docs
             "id": 3,
             "lossDescription": "Garage flooded, every electrical appliance broken in there",
             "lossType": "ELECTRICAL_APPLIANCES",
+            "status": "OPENED",
             "compensation": 900
         },
         {
             "id": 4,
             "lossDescription": "Living room window broken due to earthquake",
             "lossType": "WINDOWS",
+            "status": "OPENED",
             "compensation": 320
         }
     ]

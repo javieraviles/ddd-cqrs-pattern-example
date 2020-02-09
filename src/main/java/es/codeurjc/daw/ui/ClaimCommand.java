@@ -1,16 +1,23 @@
-package es.codeurjc.daw.controller;
+package es.codeurjc.daw.ui;
 
+import org.modelmapper.ModelMapper;
+
+import es.codeurjc.daw.model.Claim;
 import es.codeurjc.daw.model.LossType;
 
-public class BasicClaimDto {
+public class ClaimCommand {
 
 	private long id = -1;
 	private String lossDescription;
 	private LossType lossType;
 	private long compensation;
 
-	public BasicClaimDto() {
+	public ClaimCommand() {
 		super();
+	}
+
+	public Claim convertToClaimEntity(ModelMapper modelMapper) {
+		return modelMapper.map(this, Claim.class);
 	}
 
 	public long getId() {

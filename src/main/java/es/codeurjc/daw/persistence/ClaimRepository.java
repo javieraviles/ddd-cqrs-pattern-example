@@ -1,4 +1,4 @@
-package es.codeurjc.daw.repository;
+package es.codeurjc.daw.persistence;
 
 import java.util.List;
 

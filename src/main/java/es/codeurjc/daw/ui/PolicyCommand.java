@@ -1,8 +1,12 @@
-package es.codeurjc.daw.controller;
+package es.codeurjc.daw.ui;
 
 import java.time.LocalDateTime;
 
-public class FullPolicyDto {
+import org.modelmapper.ModelMapper;
+
+import es.codeurjc.daw.model.Policy;
+
+public class PolicyCommand {
 
 	private long id = -1;
 	private String address;
@@ -10,23 +14,15 @@ public class FullPolicyDto {
 	private boolean electricalAppliancesCoverage;
 	private boolean windowsCoverage;
 	private boolean facadeCoverage;
-	private LocalDateTime startingDate;
+	private LocalDateTime startDate;
 	private long yearlyPrice;
 
-	public FullPolicyDto() {
+	public PolicyCommand() {
 		super();
 	}
 
-	public FullPolicyDto(String address, int risk, boolean electricalAppliancesCoverage, boolean windowsCoverage,
-			boolean facadeCoverage, LocalDateTime startingDate, long yearlyPrice) {
-		super();
-		this.address = address;
-		this.risk = risk;
-		this.electricalAppliancesCoverage = electricalAppliancesCoverage;
-		this.windowsCoverage = windowsCoverage;
-		this.facadeCoverage = facadeCoverage;
-		this.startingDate = startingDate;
-		this.yearlyPrice = yearlyPrice;
+	public Policy convertToPolicyEntity(ModelMapper modelMapper) {
+		return modelMapper.map(this, Policy.class);
 	}
 
 	public long getId() {
@@ -77,12 +73,12 @@ public class FullPolicyDto {
 		this.facadeCoverage = facadeCoverage;
 	}
 
-	public LocalDateTime getStartingDate() {
-		return startingDate;
+	public LocalDateTime getStartDate() {
+		return startDate;
 	}
 
-	public void setStartingDate(LocalDateTime startingDate) {
-		this.startingDate = startingDate;
+	public void setStartDate(LocalDateTime startDate) {
+		this.startDate = startDate;
 	}
 
 	public long getYearlyPrice() {

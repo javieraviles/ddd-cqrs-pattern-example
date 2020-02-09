@@ -1,15 +1,19 @@
 package es.codeurjc.daw.model;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.PrePersist;
 
 @Entity
 public class Claim {
@@ -20,6 +24,7 @@ public class Claim {
 	private String lossDescription;
 	private LossType lossType;
 	private boolean expertLossAdjusterNeeded;
+	@Enumerated(EnumType.STRING)
 	private Status status;
 	private LocalDateTime creationDate;
 	private long compensation;
@@ -31,16 +36,35 @@ public class Claim {
 		super();
 	}
 
-	public Claim(String lossDescription, LossType lossType, boolean expertLossAdjusterNeeded, Status status,
-			boolean liable, LocalDateTime creationDate, long compensation, Policy policy) {
+	public Claim(String lossDescription, LossType lossType, long compensation) {
 		super();
 		this.lossDescription = lossDescription;
 		this.lossType = lossType;
-		this.expertLossAdjusterNeeded = expertLossAdjusterNeeded;
-		this.status = status;
-		this.creationDate = creationDate;
 		this.compensation = compensation;
-		this.policy = policy;
+	}
+
+	public void determineWhetherExpertLossAdjusterNeeded(final List<Claim> previousClaims) {
+		final int minClaimsToBeFraudulent = 2;
+		final int minCompensationToBeFraudulent = 1000;
+
+		if (previousClaims.size() >= minClaimsToBeFraudulent) {
+			long totalCompensation = 0;
+			for (Claim claim : previousClaims) {
+				totalCompensation += claim.getCompensation();
+			}
+			this.expertLossAdjusterNeeded = totalCompensation > minCompensationToBeFraudulent;
+		}
+		this.expertLossAdjusterNeeded = false;
+	}
+
+	@PrePersist
+	public void onPrePersist() {
+		determineStatus();
+		this.creationDate = LocalDateTime.now();
+	}
+
+	private void determineStatus() {
+		this.status = policy.isLossTypeCovered(this.lossType) ? Status.OPENED : Status.REJECTED;
 	}
 
 	public long getId() {
@@ -67,28 +91,12 @@ public class Claim {
 		this.lossType = lossType;
 	}
 
-	public boolean isExpertLossAdjusterNeeded() {
-		return expertLossAdjusterNeeded;
-	}
-
-	public void setExpertLossAdjusterNeeded(boolean expertLossAdjusterNeeded) {
-		this.expertLossAdjusterNeeded = expertLossAdjusterNeeded;
-	}
-
 	public Status getStatus() {
 		return status;
 	}
 
 	public void setStatus(Status status) {
 		this.status = status;
-	}
-
-	public LocalDateTime getCreationDate() {
-		return creationDate;
-	}
-
-	public void setCreationDate(LocalDateTime creationDate) {
-		this.creationDate = creationDate;
 	}
 
 	public long getCompensation() {

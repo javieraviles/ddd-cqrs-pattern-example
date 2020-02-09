@@ -1,4 +1,4 @@
-package es.codeurjc.daw.controller;
+package es.codeurjc.daw.ui;
 
 import java.util.List;
 
@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import es.codeurjc.daw.service.InsuranceQueryService;
+import es.codeurjc.daw.application.InsuranceQueryService;
 
 @RestController
 @RequestMapping("/api")
@@ -17,8 +17,8 @@ public class InsuranceQueryController {
 	private InsuranceQueryService insuranceService;
 
 	@GetMapping("/claim")
-	public List<BasicClaimDto> listOpenedClaims() {
-		return insuranceService.getOpenedClaimsList();
+	public List<ClaimDto> listOpenedClaims() {
+		return insuranceService.getOpenedClaims();
 	}
 
 }

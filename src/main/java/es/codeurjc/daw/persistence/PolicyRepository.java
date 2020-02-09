@@ -1,4 +1,4 @@
-package es.codeurjc.daw.repository;
+package es.codeurjc.daw.persistence;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

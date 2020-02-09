@@ -21,7 +21,7 @@ public class FullPolicyDto {
 	}
 
 	public FullPolicyDto(String address, int risk, boolean electricalAppliancesCover, boolean windowsCover,
-			boolean facadeCover, LocalDateTime startingDate, long yearlyPrice, Client policyHolder) {
+			boolean facadeCover, LocalDateTime startingDate, long yearlyPrice) {
 		super();
 		this.address = address;
 		this.risk = risk;
@@ -30,7 +30,6 @@ public class FullPolicyDto {
 		this.facadeCover = facadeCover;
 		this.startingDate = startingDate;
 		this.yearlyPrice = yearlyPrice;
-		this.policyHolder = policyHolder;
 	}
 
 	public long getId() {

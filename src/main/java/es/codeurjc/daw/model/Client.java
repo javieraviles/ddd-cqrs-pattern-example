@@ -1,5 +1,6 @@
 package es.codeurjc.daw.model;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import javax.persistence.Entity;
@@ -16,12 +17,12 @@ public class Client {
 	private String name;
 	private String email;
 	private String phone;
-	private LocalDateTime birthDate;
+	private LocalDate birthDate;
 
 	public Client() {
 	}
 
-	public Client(String name, String email, String phone, LocalDateTime birthDate) {
+	public Client(String name, String email, String phone, LocalDate birthDate) {
 		super();
 		this.name = name;
 		this.email = email;
@@ -61,11 +62,11 @@ public class Client {
 		this.phone = phone;
 	}
 
-	public LocalDateTime getBirthDate() {
+	public LocalDate getBirthDate() {
 		return birthDate;
 	}
 
-	public void setBirthDate(LocalDateTime birthDate) {
+	public void setBirthDate(LocalDate birthDate) {
 		this.birthDate = birthDate;
 	}
 

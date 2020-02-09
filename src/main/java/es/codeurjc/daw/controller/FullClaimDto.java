@@ -19,15 +19,13 @@ public class FullClaimDto {
 		super();
 	}
 
-	public FullClaimDto(String lossDescription, boolean expertLossAdjusterNeeded, Status status,
-			LocalDateTime creationDate, long compensation, Policy policy) {
+	public FullClaimDto(String lossDescription, Status status,
+			LocalDateTime creationDate, long compensation) {
 		super();
 		this.lossDescription = lossDescription;
-		this.expertLossAdjusterNeeded = expertLossAdjusterNeeded;
 		this.status = status;
 		this.creationDate = creationDate;
 		this.compensation = compensation;
-		this.policy = policy;
 	}
 
 	public long getId() {

@@ -2,6 +2,7 @@ package es.codeurjc.daw.model;
 
 import java.time.LocalDateTime;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -21,7 +22,7 @@ public class Claim {
 	private Status status;
 	private LocalDateTime creationDate;
 	private long compensation;
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "policy_id")
 	private Policy policy;
 

@@ -36,13 +36,6 @@ public class Claim {
 		super();
 	}
 
-	public Claim(String lossDescription, LossType lossType, long compensation) {
-		super();
-		this.lossDescription = lossDescription;
-		this.lossType = lossType;
-		this.compensation = compensation;
-	}
-
 	public void determineWhetherExpertLossAdjusterNeeded(final List<Claim> previousClaims) {
 		final int minClaimsToBeFraudulent = 2;
 		final int minCompensationToBeFraudulent = 1000;
@@ -53,8 +46,9 @@ public class Claim {
 				totalCompensation += claim.getCompensation();
 			}
 			this.expertLossAdjusterNeeded = totalCompensation > minCompensationToBeFraudulent;
+		} else {
+			this.expertLossAdjusterNeeded = false;
 		}
-		this.expertLossAdjusterNeeded = false;
 	}
 
 	@PrePersist
@@ -67,32 +61,12 @@ public class Claim {
 		this.status = policy.isLossTypeCovered(this.lossType) ? Status.OPENED : Status.REJECTED;
 	}
 
-	public long getId() {
-		return id;
-	}
-
-	public void setId(long id) {
-		this.id = id;
-	}
-
-	public String getLossDescription() {
-		return lossDescription;
-	}
-
 	public void setLossDescription(String lossDescription) {
 		this.lossDescription = lossDescription;
 	}
 
-	public LossType getLossType() {
-		return lossType;
-	}
-
 	public void setLossType(LossType lossType) {
 		this.lossType = lossType;
-	}
-
-	public Status getStatus() {
-		return status;
 	}
 
 	public void setStatus(Status status) {
@@ -105,10 +79,6 @@ public class Claim {
 
 	public void setCompensation(long compensation) {
 		this.compensation = compensation;
-	}
-
-	public Policy getPolicy() {
-		return policy;
 	}
 
 	public void setPolicy(Policy policy) {

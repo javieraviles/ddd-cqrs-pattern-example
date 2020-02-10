@@ -5,7 +5,6 @@ import es.codeurjc.daw.model.Status;
 
 public class ClaimDto {
 
-	private long id = -1;
 	private String lossDescription;
 	private LossType lossType;
 	private Status status;
@@ -13,14 +12,6 @@ public class ClaimDto {
 
 	public ClaimDto() {
 		super();
-	}
-
-	public long getId() {
-		return id;
-	}
-
-	public void setId(long id) {
-		this.id = id;
 	}
 
 	public String getLossDescription() {

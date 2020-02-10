@@ -34,14 +34,14 @@ public class InsuranceCommandService {
 
 	public void newPolicy(long clientId, PolicyCommand policy) {
 		Client client = clientRepository.findById(clientId).orElseThrow(EntityNotFoundException::new);
-		Policy policyEntity = policy.convertToPolicyEntity(modelMapper);
+		Policy policyEntity = policy.convertToEntity(modelMapper);
 		policyEntity.setPolicyHolder(client);
 		policyRepository.save(policyEntity);
 	}
 
 	public void newClaim(long policyId, ClaimCommand claim) {
 		Policy policy = policyRepository.findById(policyId).orElseThrow(EntityNotFoundException::new);
-		Claim claimEntity = claim.convertToClaimEntity(modelMapper);
+		Claim claimEntity = claim.convertToEntity(modelMapper);
 		claimEntity.setPolicy(policy);
 		List<Claim> previousClaims = claimRepository.findAllByPolicyPolicyHolderId(policy.getPolicyHolder().getId());
 		claimEntity.determineWhetherExpertLossAdjusterNeeded(previousClaims);

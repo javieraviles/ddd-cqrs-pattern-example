@@ -8,7 +8,6 @@ import es.codeurjc.daw.model.Policy;
 
 public class PolicyCommand {
 
-	private long id = -1;
 	private String address;
 	private int risk;
 	private boolean electricalAppliancesCoverage;
@@ -21,16 +20,8 @@ public class PolicyCommand {
 		super();
 	}
 
-	public Policy convertToPolicyEntity(ModelMapper modelMapper) {
+	public Policy convertToEntity(ModelMapper modelMapper) {
 		return modelMapper.map(this, Policy.class);
-	}
-
-	public long getId() {
-		return id;
-	}
-
-	public void setId(long id) {
-		this.id = id;
 	}
 
 	public String getAddress() {

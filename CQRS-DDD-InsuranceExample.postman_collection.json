@@ -60,7 +60,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"address\": \"Avda Manuel Carceles 44\",\n\t\"risk\": 3,\n\t\"electricalAppliancesCoverage\": true,\n\t\"windowsCoverage\": false,\n\t\"facadeCoverage\": true,\n\t\"startingDate\": \"2016-10-10T15:00:00\",\n\t\"yearlyPrice\": 499\n}",
+					"raw": "{\n\t\"address\": \"Avda Manuel Carceles 44\",\n\t\"risk\": 3,\n\t\"electricalAppliancesCoverage\": true,\n\t\"windowsCoverage\": false,\n\t\"facadeCoverage\": true,\n\t\"startDate\": \"2016-10-10T15:00:00\",\n\t\"yearlyPrice\": 499\n}",
 					"options": {
 						"raw": {
 							"language": "json"

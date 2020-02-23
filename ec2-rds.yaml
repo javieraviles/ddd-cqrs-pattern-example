@@ -1,0 +1,106 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: EC2
+
+Parameters:
+  DBPassword:
+    Description: Database password
+    Type: String
+    NoEcho: true
+    MinLength: 8
+  KeyName:
+    Description: Key pair to use in EC2 instance
+    Type: AWS::EC2::KeyPair::KeyName
+
+Resources: 
+  rdsDBInstance:
+    Type: AWS::RDS::DBInstance
+    Properties:
+      DBInstanceClass: "db.t2.micro"
+      AllocatedStorage: 10
+      AllowMajorVersionUpgrade: false
+      AutoMinorVersionUpgrade: true
+      DBInstanceIdentifier: springaws
+      DBName: springaws
+      Engine: mysql
+      EngineVersion: 5.7
+      MasterUsername: springaws
+      MasterUserPassword: !Ref DBPassword
+      MultiAZ: false
+      PubliclyAccessible: true
+      StorageEncrypted: false
+      VPCSecurityGroups:
+        - !GetAtt rdsSecurityGroup.GroupId
+  rdsSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupName: mysql-3306
+      GroupDescription: "SG for MySQL RDS"
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: '3306'
+          ToPort: '3306'
+          SourceSecurityGroupName: !Ref ec2SecurityGroup
+  myEC2Instance:
+    Type: AWS::EC2::Instance
+    DependsOn: rdsDBInstance
+    Properties:
+      KeyName: !Ref KeyName
+      ImageId: ami-07ebfd5b3428b6f4d
+      InstanceType: "t2.micro"
+      IamInstanceProfile: !Ref myIamInstanceProfile
+      Monitoring: true
+      SecurityGroups:
+        - !Ref ec2SecurityGroup
+      UserData: 
+        Fn::Base64: 
+          Fn::Sub: 
+            - |
+              #!/bin/bash -ex
+              apt-get update && apt-get install -y openjdk-8-jre-headless
+              wget https://s3.amazonaws.com/s3.cloudapps.codeurjc/blog-cqrs-ejem1-1.0.0.jar
+              java -jar blog-cqrs-ejem1-1.0.0.jar --cloud.aws.rds.springaws.password=${Pass}
+            - Pass: !Ref DBPassword
+      Tags:
+        - Key: Name
+          Value: blog-cqrs
+  ec2SecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupName: spring-8080
+      GroupDescription: "SG for spring 8080"
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: '8080'
+          ToPort: '8080'
+          CidrIp: 0.0.0.0/0
+  myIamRole:
+    Type: "AWS::IAM::Role"
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: "Allow"
+            Principal:
+              Service:
+                - "ec2.amazonaws.com" 
+            Action: 
+              - "sts:AssumeRole"
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/AmazonRDSFullAccess
+        - arn:aws:iam::aws:policy/SecretsManagerReadWrite
+  myIamInstanceProfile:
+    Type: AWS::IAM::InstanceProfile
+    Properties: 
+      InstanceProfileName: myIamInstanceProfile
+      Roles: 
+        - !Ref myIamRole
+
+Outputs:
+  WebSiteURL:
+    Value:
+      !Join
+        - ''
+        - - "http://"
+          - !GetAtt myEC2Instance.PublicDnsName
+          - ":8080/"
+    Description: "Blog CQRS"
